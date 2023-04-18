@@ -29,11 +29,18 @@
       "id": 18
     },
     {
-      "name": "Jim",
-      "description": "Jim is a dog, a very cute dog",
-      "isFavorite": false,
-      "image": "/src/assets/chihuahua.avif",
-      "id": 20
+      "name": "Purple",
+      "image": "/src/assets/blue-heeler.png",
+      "description": "Rain",
+      "isFavorite": true,
+      "id": 21
+    },
+    {
+      "name": "Doodah!",
+      "description": "Tralala",
+      "isFavorite": true,
+      "image": "/src/assets/cowardly.png",
+      "id": 22
     }
   ]
 }

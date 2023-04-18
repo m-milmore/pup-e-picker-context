@@ -1,14 +1,18 @@
+import { useDogs } from "../providers/dog-provider";
+
 //! Get rid of all props except 'children' and 'label'
 export const Section = ({
   label, // do not delete
   children, // do not delete
-  onClickFavorited,
-  onClickUnfavorited,
-  onClickCreateDog,
-  showComponent,
-  favoriteDogCount,
-  unfavoriteDogCount,
 }) => {
+  const {
+    unfavorited,
+    favorited,
+    onClickFavorited,
+    onClickUnfavorited,
+    onClickCreateDog,
+    showComponent,
+  } = useDogs();
   return (
     <section>
       <div className="container-header">
@@ -21,7 +25,7 @@ export const Section = ({
             }`}
             onClick={onClickFavorited}
           >
-            favorited ( {favoriteDogCount} )
+            favorited ( {favorited.length} )
           </div>
 
           {/* This should display the unfavorited count */}
@@ -31,7 +35,7 @@ export const Section = ({
             }`}
             onClick={onClickUnfavorited}
           >
-            unfavorited ( {unfavoriteDogCount} )
+            unfavorited ( {unfavorited.length} )
           </div>
           <div
             className={`selector ${
