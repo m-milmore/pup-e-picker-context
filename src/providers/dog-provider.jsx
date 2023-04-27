@@ -10,8 +10,8 @@ export const DogsProvider = ({ children }) => {
   const [dogs, setDogs] = useState([]);
   const [showComponent, setShowComponent] = useState("all-dogs");
 
-  const unfavorited = dogs.filter((dog) => dog.isFavorite === false);
-  const favorited = dogs.filter((dog) => dog.isFavorite === true);
+  const unfavorited = dogs.filter((dog) => !dog.isFavorite);
+  const favorited = dogs.filter((dog) => dog.isFavorite);
 
   let filteredDogs = (() => {
     if (showComponent === "favorite-dogs") {
@@ -24,10 +24,13 @@ export const DogsProvider = ({ children }) => {
     return dogs;
   })();
 
+  const refetch = () => {
+    getDogs().then(setDogs);
+  };
+
   useEffect(() => {
-    getDogs()
-      .then(setDogs);
-  }, [dogs]);
+    refetch();
+  }, []);
 
   const addDog = (dog) => {
     createDog({
@@ -35,25 +38,41 @@ export const DogsProvider = ({ children }) => {
       description: dog.description,
       image: dog.image,
     }).then((response) => {
-      !response.ok && alert("Server error");
+      if (!response.ok) {
+        alert("Server error");
+        return;
+      }
+      refetch();
     });
   };
 
   const deleteDog = (dogId) => {
     removeDog(dogId).then((response) => {
-      !response.ok && alert("Server error");
+      if (!response.ok) {
+        alert("Server error");
+        return;
+      }
+      refetch();
     });
   };
 
   const unfavoriteDog = (dogId) => {
     updateFavoriteForDog({ dogId, isFavorite: false }).then((response) => {
-      !response.ok && alert("Server error");
+      if (!response.ok) {
+        alert("Server error");
+        return;
+      }
+      refetch();
     });
   };
 
   const favoriteDog = (dogId) => {
     updateFavoriteForDog({ dogId, isFavorite: true }).then((response) => {
-      !response.ok && alert("Server error");
+      if (!response.ok) {
+        alert("Server error");
+        return;
+      }
+      refetch();
     });
   };
 
